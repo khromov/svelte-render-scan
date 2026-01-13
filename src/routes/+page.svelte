@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Eye from '$lib/components/Logo.svelte';
-	import pkg from '../../package.json' assert { type: 'json' };
+	import pkg from '../../package.json' with { type: 'json' };
 	import RenderScan from '$lib/components/RenderScan.svelte';
 
 	// Interactive demo state

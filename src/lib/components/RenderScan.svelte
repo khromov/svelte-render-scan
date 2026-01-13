@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Eye from '$lib/components/Logo.svelte';
 	import RenderScanObserver from './RenderScanObserver.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 
 	// Props with defaults
 	let {
@@ -19,7 +19,7 @@
 	}>();
 
 	// State management
-	let enabled = $state(initialEnabled);
+	let enabled = $state(untrack(() => initialEnabled));
 
 	// Fixed colors for enabled/disabled states
 	const enabledColor = '#2189b5';
