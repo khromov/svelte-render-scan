@@ -6,20 +6,19 @@
 	// Props with defaults
 	let {
 		initialEnabled = true,
+		enabled = $bindable(untrack(() => initialEnabled)),
 		offsetLeft = 0,
 		hideIcon = false,
 		callback = undefined,
 		duration = 1000
 	} = $props<{
 		initialEnabled?: boolean;
+		enabled?: boolean;
 		offsetLeft?: number;
 		hideIcon?: boolean;
 		callback?: (mutationRecord: MutationRecord) => void;
 		duration?: number;
 	}>();
-
-	// State management
-	let enabled = $state(untrack(() => initialEnabled));
 
 	// Fixed colors for enabled/disabled states
 	const enabledColor = '#2189b5';
