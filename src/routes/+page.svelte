@@ -10,6 +10,7 @@
 	let boxes = $state<number[]>([]);
 	let maxBoxes = 3;
 	let isAnimating = $state(false);
+	let scanEnabled = $state(true);
 	let logoVisible = $state(false);
 
 	// Animate logo after a small delay when component mounts
@@ -89,6 +90,19 @@
 }
 
 <RenderScan callback={customCallback} />`;
+
+	// Programmatic control code snippet
+	const programmaticCode = `<script>
+	import { RenderScan } from 'svelte-render-scan';
+
+	let scanEnabled = $state(true);
+<\/script>
+
+<button onclick={() => scanEnabled = !scanEnabled}>
+	{scanEnabled ? 'Disable' : 'Enable'} Scan
+</button>
+
+<RenderScan bind:enabled={scanEnabled} hideIcon />`;
 </script>
 
 <div class="border-b-4 bg-[#faf6f4] py-12">
@@ -284,6 +298,26 @@
 			</div>
 
 			<div>
+				<h3 class="mb-2 font-bold">Programmatic Control</h3>
+				<p class="mb-3 text-gray-600">
+					Control the render scan externally from your own developer toolbar using <code
+						class="rounded bg-gray-100 px-1">bind:enabled</code
+					>:
+				</p>
+				<div class="mb-4 flex items-center gap-3">
+					<button
+						onclick={() => (scanEnabled = !scanEnabled)}
+						class="rounded-lg px-4 py-2 font-medium text-white transition-colors"
+						style="background-color: {scanEnabled ? '#2189b5' : '#9ca3af'}"
+					>
+						{scanEnabled ? '✓ Scanning Enabled' : '✗ Scanning Disabled'}
+					</button>
+					<span class="text-sm text-gray-500">← Try it!</span>
+				</div>
+				<div class="code-block">{programmaticCode}</div>
+			</div>
+
+			<div>
 				<h3 class="mb-2 font-bold">Callback Function</h3>
 				<p class="mb-3 text-gray-600">
 					Optional user defined function that gets called once per valid mutation:
@@ -307,7 +341,11 @@
 	</p>
 
 	{#if mounted}
-		<RenderScan callback={(m) => console.debug('Mutation observed!', m.type)} duration={1000} />
+		<RenderScan
+			bind:enabled={scanEnabled}
+			callback={(m) => console.debug('Mutation observed!', m.type)}
+			duration={1000}
+		/>
 	{/if}
 </div>
 
