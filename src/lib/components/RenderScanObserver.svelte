@@ -91,7 +91,7 @@
 					setTimeout(() => {
 						this.#element.remove();
 						activeHighlights.delete(this);
-					}, 250); // Match the CSS transition duration
+					}, 250);
 				}, duration);
 			});
 		}
